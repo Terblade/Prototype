@@ -1,0 +1,10 @@
+# Ignore files
+*.sln
+
+# Ignore dictionaries
+Content/
+Intermediate/
+DerivedDataCache/
+.vs/
+Saved/
+Binaries/
