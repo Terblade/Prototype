@@ -2,7 +2,7 @@
 *.sln
 
 # Ignore dictionaries
-Content/
+###Content/
 Intermediate/
 DerivedDataCache/
 .vs/
