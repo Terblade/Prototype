@@ -1,5 +1,8 @@
 # Ignore files
 *.sln
+*.sdf
+*.db
+*.opendb
 
 # Ignore dictionaries
 ###Content/
