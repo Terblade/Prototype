@@ -7,7 +7,7 @@
 #include "GameFramework/SpringArmComponent.h"
 
 
-APrototypCharacter::APrototypCharacter()
+APrototypeCharacter::APrototypeCharacter()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -42,51 +42,51 @@ APrototypCharacter::APrototypCharacter()
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
 
-void APrototypCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+void APrototypeCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
 	// Set up gameplay key bindings
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
-	PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &APrototypCharacter::Attack);
+	PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &APrototypeCharacter::Attack);
 
-	PlayerInputComponent->BindAxis("MoveForward", this, &APrototypCharacter::MoveForward);
-	PlayerInputComponent->BindAxis("MoveRight", this, &APrototypCharacter::MoveRight);
+	PlayerInputComponent->BindAxis("MoveForward", this, &APrototypeCharacter::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &APrototypeCharacter::MoveRight);
 
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
 	// "turn" handles devices that provide an absolute delta, such as a mouse.
 	// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
 	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
-	PlayerInputComponent->BindAxis("TurnRate", this, &APrototypCharacter::TurnAtRate);
+	PlayerInputComponent->BindAxis("TurnRate", this, &APrototypeCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
-	PlayerInputComponent->BindAxis("LookUpRate", this, &APrototypCharacter::LookUpAtRate);
+	PlayerInputComponent->BindAxis("LookUpRate", this, &APrototypeCharacter::LookUpAtRate);
 
 }
 
-void APrototypCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
+void APrototypeCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
 {
 	Jump();
 }
 
-void APrototypCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector Location)
+void APrototypeCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector Location)
 {
 	StopJumping();
 }
 
-void APrototypCharacter::TurnAtRate(float Rate)
+void APrototypeCharacter::TurnAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
 }
 
-void APrototypCharacter::LookUpAtRate(float Rate)
+void APrototypeCharacter::LookUpAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
-void APrototypCharacter::MoveForward(float Value)
+void APrototypeCharacter::MoveForward(float Value)
 {
 	if ((Controller != NULL) && (Value != 0.0f))
 	{
@@ -100,7 +100,7 @@ void APrototypCharacter::MoveForward(float Value)
 	}
 }
 
-void APrototypCharacter::MoveRight(float Value)
+void APrototypeCharacter::MoveRight(float Value)
 {
 	if ((Controller != NULL) && (Value != 0.0f))
 	{
@@ -115,7 +115,17 @@ void APrototypCharacter::MoveRight(float Value)
 	}
 }
 
-void APrototypCharacter::Attack()
+void APrototypeCharacter::Attack()
+{
+
+}
+
+void APrototypeCharacter::RefreshInventory()
+{
+
+}
+
+void APrototypeCharacter::ItemUsed(class UItemComponent* Item)
 {
 
 }

@@ -4,7 +4,7 @@
 #include "PrototypeCharacter.generated.h"
 
 UCLASS(config = Game)
-class APrototypCharacter : public ACharacter
+class APrototypeCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
@@ -17,7 +17,10 @@ class APrototypCharacter : public ACharacter
 	class UCameraComponent* FollowCamera;
 
 public:
-	APrototypCharacter();
+	APrototypeCharacter();
+
+	void RefreshInventory();
+	void ItemUsed(class UItemComponent* Item);
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
@@ -26,6 +29,12 @@ public:
 	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 	float BaseLookUpRate;
+
+	UPROPERTY()
+	TArray<class UItemComponent*> CurrentItems;
+
+	UPROPERTY()
+	class UUserWidget* InventoryGridWidget;
 
 protected:
 	/** Called for forwards/backward input */
