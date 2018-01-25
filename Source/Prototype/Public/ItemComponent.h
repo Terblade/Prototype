@@ -12,7 +12,7 @@ enum class EItmeType : uint8
 	consumable
 };
 
-UCLASS(config = Game)
+UCLASS(config = Game, Meta = (BlueprintSpawnableComponent), ClassGroup = (Gameplay, Item))
 class UItemComponent : public USceneComponent
 {
 	GENERATED_BODY()

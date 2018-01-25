@@ -28,14 +28,6 @@ UItemComponent::UItemComponent()
 void UItemComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	UWorld* CurrentWorld = GetWorld();
-	if (CurrentWorld)
-	{
-		UPickupText* TempWidget = CreateWidget<UPickupText>(CurrentWorld);
-		TempWidget->SetReferenceComponent(this);
-		PickupTextWidget = TempWidget;
-	}
 }
 
 void UItemComponent::OnPickupItem(APrototypeCharacter* Player)

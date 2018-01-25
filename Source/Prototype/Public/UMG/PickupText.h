@@ -11,16 +11,38 @@ class UPickupText : public UUserWidget
 
 public:
 	//UPickupText();
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnTextChanged(FText& InText);
+	
+	UFUNCTION(BlueprintCallable, Category = "PickupText")
+	FVector GetShowPosition();
 
-	FORCEINLINE class UActorComponent* GetReferenceComponent() const;
-	void SetReferenceComponent(class UActorComponent* InComponent);
+	/*
+	* Reference Actor Get/Set
+	*/
+	FORCEINLINE class AActor* GetReferenceActor() const;
+	void SetReferenceActor(class AActor* InComponent);
+
+	/*
+	* ShowText Get/Set
+	*/
+	FORCEINLINE const class FText& GetShowText() const;
+	void SetShowText(const FText& InText);
+
 private:
-	class UActorComponent* ReferenceComponent;
+	/*
+	* Bind to UMG text block
+	*/
+	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	FText ShowText;
+
+	class AActor* ReferenceActor;
 };
 
-FORCEINLINE class UActorComponent* UPickupText::GetReferenceComponent() const
+FORCEINLINE class AActor* UPickupText::GetReferenceActor() const
 {
-	return ReferenceComponent;
+	return ReferenceActor;
+}
+
+FORCEINLINE const class FText& UPickupText::GetShowText() const
+{
+	return ShowText;
 }
