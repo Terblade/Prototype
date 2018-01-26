@@ -15,6 +15,8 @@ public:
 	// Sets default values for this actor's properties
 	AItemActor();
 
+	virtual void Tick(float DeltaSeconds);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -52,7 +54,7 @@ public:
 	FText PickupText;
 
 	UPROPERTY(EditAnywhere, Category = Item)
-	TSubclassOf<class UPickupText> PickupTextClass;
+	TSubclassOf<class UPickupText> UMGClass;
 
 	/*
 	* item显示用文本控件

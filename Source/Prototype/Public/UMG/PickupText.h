@@ -12,8 +12,11 @@ class UPickupText : public UUserWidget
 public:
 	//UPickupText();
 	
-	UFUNCTION(BlueprintCallable, Category = "PickupText")
-	FVector GetShowPosition();
+	//UFUNCTION(BlueprintCallable, Category = "PickupText")
+	/*
+	* 依赖上层去调用这个函数， nativetick在ui跑出viewport以后会自动优化停止.
+	*/
+	void PositionUpdate();
 
 	/*
 	* Reference Actor Get/Set
@@ -27,6 +30,10 @@ public:
 	FORCEINLINE const class FText& GetShowText() const;
 	void SetShowText(const FText& InText);
 
+protected:
+	// Begin UUserWidget interface
+	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
+	// end UUserWidget interface
 private:
 	/*
 	* Bind to UMG text block

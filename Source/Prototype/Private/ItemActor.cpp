@@ -8,7 +8,7 @@
 
 // Sets default values
 AItemActor::AItemActor()
-:PickupTextClass(nullptr)
+:UMGClass(nullptr)
 {
 	TriggerCollision = CreateDefaultSubobject<USphereComponent>(TEXT("TriggerCollision"));
 	if (TriggerCollision)
@@ -30,7 +30,17 @@ AItemActor::AItemActor()
 	}
 
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	//PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+void AItemActor::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	if (PickupTextWidget)
+	{
+		PickupTextWidget->PositionUpdate();
+	}
 }
 
 // Called when the game starts or when spawned
@@ -39,9 +49,9 @@ void AItemActor::BeginPlay()
 	Super::BeginPlay();
 	
 	UWorld* CurrentWorld = GetWorld();
-	if (CurrentWorld && PickupTextClass != nullptr)
+	if (CurrentWorld && UMGClass != nullptr)
 	{
-		PickupTextWidget = CreateWidget<UPickupText>(CurrentWorld, PickupTextClass);
+		PickupTextWidget = CreateWidget<UPickupText>(CurrentWorld, UMGClass);
 		PickupTextWidget->SetReferenceActor(this);
 		PickupTextWidget->SetShowText(PickupText);
 	}
