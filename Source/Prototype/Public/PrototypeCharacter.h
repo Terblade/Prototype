@@ -19,6 +19,7 @@ class APrototypeCharacter : public ACharacter
 public:
 	APrototypeCharacter();
 
+
 	void RefreshInventory();
 	void ItemUsed(class UItemComponent* Item);
 
@@ -30,13 +31,20 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 	float BaseLookUpRate;
 
+	UPROPERTY(EditAnywhere, Category = InformationView)
+	TSubclassOf<class UCharInforViewer> ViewerUMGClass;
+
 	UPROPERTY()
 	TArray<class UItemComponent*> CurrentItems;
 
 	UPROPERTY()
-	class UUserWidget* InventoryGridWidget;
+	class UCharInforViewer* CharacterInforViewer;
 
 protected:
+
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
 	/** Called for forwards/backward input */
 	void MoveForward(float Value);
 
@@ -62,6 +70,8 @@ protected:
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
 	void Attack();
+
+	void ToggleCharcterInforViewer();
 
 protected:
 	// APawn interface

@@ -5,7 +5,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
-
+#include "UMG/CharInforViewer.h"
 
 APrototypeCharacter::APrototypeCharacter()
 {
@@ -51,6 +51,9 @@ void APrototypeCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 
 	PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &APrototypeCharacter::Attack);
 
+	PlayerInputComponent->BindAction("ToggleInventory", IE_Pressed, this, &APrototypeCharacter::ToggleCharcterInforViewer);
+	//PlayerInputComponent->BindAction("GetItem", IE_Pressed, this, &APrototypeCharacter::GetItem);
+
 	PlayerInputComponent->BindAxis("MoveForward", this, &APrototypeCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &APrototypeCharacter::MoveRight);
 
@@ -86,6 +89,18 @@ void APrototypeCharacter::LookUpAtRate(float Rate)
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
+
+void APrototypeCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	UWorld* CurrentWorld = GetWorld();
+	if (CurrentWorld && ViewerUMGClass != nullptr)
+	{
+		CharacterInforViewer = CreateWidget<UCharInforViewer>(CurrentWorld, ViewerUMGClass);
+	}
+}
+
 void APrototypeCharacter::MoveForward(float Value)
 {
 	if ((Controller != NULL) && (Value != 0.0f))
@@ -118,6 +133,14 @@ void APrototypeCharacter::MoveRight(float Value)
 void APrototypeCharacter::Attack()
 {
 
+}
+
+void APrototypeCharacter::ToggleCharcterInforViewer()
+{
+	if (!CharacterInforViewer)
+		return;
+
+	CharacterInforViewer->ToggleVisibility();
 }
 
 void APrototypeCharacter::RefreshInventory()
