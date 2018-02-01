@@ -3,10 +3,25 @@
 #include "GameFramework/Character.h"
 #include "PrototypeCharacter.generated.h"
 
+enum class EItmeType : uint8;
+
+USTRUCT()
+struct FPrototype_ItemInfor
+{
+	GENERATED_BODY()
+
+	EItmeType ItemType;
+
+	UPROPERTY()
+	class UTexture2D* InventoryImage;
+};
+
 UCLASS(config = Game)
 class APrototypeCharacter : public ACharacter
 {
 	GENERATED_BODY()
+
+	DECLARE_MULTICAST_DELEGATE_OneParam(FOnPickupItem, class APrototypeCharacter*);
 
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
@@ -16,12 +31,15 @@ class APrototypeCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
 
+	FOnPickupItem OnPickupItemDelegate;
 public:
 	APrototypeCharacter();
 
 
 	void RefreshInventory();
 	void ItemUsed(class UItemComponent* Item);
+	void PickupItem();
+	FOnPickupItem& OnPickupItem() { return OnPickupItemDelegate; }
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
@@ -35,7 +53,7 @@ public:
 	TSubclassOf<class UCharInforViewer> ViewerUMGClass;
 
 	UPROPERTY()
-	TArray<class UItemComponent*> CurrentItems;
+	TArray<FPrototype_ItemInfor> CurrentItems;
 
 	UPROPERTY()
 	class UCharInforViewer* CharacterInforViewer;

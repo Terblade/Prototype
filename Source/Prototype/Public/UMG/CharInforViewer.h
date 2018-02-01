@@ -18,7 +18,7 @@ public:
 
 	UCharInforViewer(const FObjectInitializer& ObjectInitializer);
 
-	//virtual void NativeConstruct();
+	//virtual void NativeConstruct() override;
 
 	void ToggleVisibility();
 
@@ -28,15 +28,16 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "CharInforViewer")
 	void HideCharInforViewer();
 
-	void RefreshInventory();
+	void RefreshInventory(const TArray<struct FPrototype_ItemInfor>& Items);
 	void RefreshCharacterStatsBox();
 
 private:
 	/*
-	* Inventory显示用控件
+	* 装备仓库栏位
+	* Native C++ bind to UMG控件
 	*/
-	UPROPERTY(EditAnywhere, Category = Item)
-	TSubclassOf<class UItemInventory> InventoryUMGClass;
+	UPROPERTY(meta = (BindWidget))
+	class UItemInventory* InventoryGrid;
 
 	bool bIsOpened;
 };

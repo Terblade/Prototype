@@ -2,16 +2,6 @@
 #include "CoreMinimal.h"
 #include "ItemComponent.generated.h"
 
-UENUM()
-enum class EItmeType : uint8
-{
-	Weapon_1Handed = 0,
-	Weapon_2Handed,
-	Armor_Shield,
-	Armor_Helmet,
-	consumable
-};
-
 UCLASS(config = Game, Meta = (BlueprintSpawnableComponent), ClassGroup = (Gameplay, Item))
 class UItemComponent : public USceneComponent
 {
@@ -44,9 +34,6 @@ public:
 	*/
 	UPROPERTY(EditAnywhere, Category = Item)
 	class UStaticMeshComponent* PreviewMesh;
-
-	UPROPERTY(EditAnywhere, Category = Item)
-	EItmeType ItemType;
 
 	/*
 	* item显示用文本

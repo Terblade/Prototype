@@ -14,9 +14,18 @@ class PROTOTYPE_API UItemInventory : public UUserWidget
 {
 	GENERATED_BODY()
 	
-private:
-	//UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = true))
-	//TArray<>
-	
-	
+	enum EItemNumber{MAXITEM = 15};
+
+public:
+
+	virtual void NativeConstruct() override;
+
+	void Refresh(const TArray<struct FPrototype_ItemInfor>& Items);
+
+	/*
+	* item²ÛÎ»
+	* Native C++ bind to UMG¿Ø¼þ
+	*/
+	UPROPERTY()
+	TArray<class UInventorySlot*> InventorySlots;
 };

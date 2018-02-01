@@ -47,7 +47,6 @@ void UItemComponent::OnPickupItem(APrototypeCharacter* Player)
 		PickupTextWidget->RemoveFromParent();
 	}
 	
-	Player->CurrentItems.AddUnique(this);
 	Player->RefreshInventory();
 }
 

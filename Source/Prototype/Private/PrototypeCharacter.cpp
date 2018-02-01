@@ -6,6 +6,7 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "UMG/CharInforViewer.h"
+#include "ItemActor.h"
 
 APrototypeCharacter::APrototypeCharacter()
 {
@@ -52,7 +53,7 @@ void APrototypeCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 	PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &APrototypeCharacter::Attack);
 
 	PlayerInputComponent->BindAction("ToggleInventory", IE_Pressed, this, &APrototypeCharacter::ToggleCharcterInforViewer);
-	//PlayerInputComponent->BindAction("GetItem", IE_Pressed, this, &APrototypeCharacter::GetItem);
+	PlayerInputComponent->BindAction("PickupItem", IE_Pressed, this, &APrototypeCharacter::PickupItem);
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &APrototypeCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &APrototypeCharacter::MoveRight);
@@ -141,14 +142,25 @@ void APrototypeCharacter::ToggleCharcterInforViewer()
 		return;
 
 	CharacterInforViewer->ToggleVisibility();
+	CharacterInforViewer->RefreshInventory(CurrentItems);
 }
 
 void APrototypeCharacter::RefreshInventory()
 {
-
+	if (CharacterInforViewer)
+	{
+		CharacterInforViewer->RefreshInventory(CurrentItems);
+	}
 }
 
 void APrototypeCharacter::ItemUsed(class UItemComponent* Item)
 {
 
+}
+
+void APrototypeCharacter::PickupItem()
+{
+	OnPickupItemDelegate.Broadcast(this);
+
+	RefreshInventory();
 }

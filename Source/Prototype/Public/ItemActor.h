@@ -6,6 +6,18 @@
 #include "GameFramework/Actor.h"
 #include "ItemActor.generated.h"
 
+
+
+UENUM()
+enum class EItmeType : uint8
+{
+	Weapon_1Handed = 0,
+	Weapon_2Handed,
+	Armor_Shield,
+	Armor_Helmet,
+	consumable
+};
+
 UCLASS(config = Game, BlueprintType)
 class PROTOTYPE_API AItemActor : public AActor
 {
@@ -52,6 +64,9 @@ public:
 	*/
 	UPROPERTY(EditAnywhere, Category = Item)
 	FText PickupText;
+
+	UPROPERTY(EditAnywhere, Category = Item)
+	EItmeType ItemType;
 
 	UPROPERTY(EditAnywhere, Category = Item)
 	TSubclassOf<class UPickupText> UMGClass;

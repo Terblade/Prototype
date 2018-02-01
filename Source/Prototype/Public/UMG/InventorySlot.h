@@ -15,8 +15,6 @@ class PROTOTYPE_API UInventorySlot : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-	UPROPERTY()
-	class UImage* SlotImage;
-
-
+	UPROPERTY(BlueprintReadWrite)
+	class UTexture2D* SlotImage;
 };

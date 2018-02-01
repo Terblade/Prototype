@@ -54,6 +54,12 @@ void AItemActor::BeginPlay()
 		PickupTextWidget = CreateWidget<UPickupText>(CurrentWorld, UMGClass);
 		PickupTextWidget->SetReferenceActor(this);
 		PickupTextWidget->SetShowText(PickupText);
+
+		APrototypeCharacter* Player = Cast<APrototypeCharacter>(UGameplayStatics::GetPlayerCharacter(CurrentWorld, 0));
+		if (Player)
+		{
+			Player->OnPickupItem().AddUObject(this, &AItemActor::OnPickupItem);
+		}
 	}
 }
 
@@ -73,17 +79,20 @@ void AItemActor::OnPickupItem(class APrototypeCharacter* Player)
 	if (!bIsInRange || !Player)
 		return;
 
-	if (GetOwner())
-	{
-		GetOwner()->SetActorHiddenInGame(true);
-		GetOwner()->SetActorEnableCollision(false);
-	}
+	SetActorHiddenInGame(true);
+	SetActorEnableCollision(false);
 
 	// 移掉场景里显示的UI
 	if (PickupTextWidget)
 	{
 		PickupTextWidget->RemoveFromParent();
 	}
+
+	FPrototype_ItemInfor Item;
+	Item.ItemType = ItemType;
+	Item.InventoryImage = InventoryImage;
+
+	Player->CurrentItems.Add(Item);
 
 	Player->RefreshInventory();
 }

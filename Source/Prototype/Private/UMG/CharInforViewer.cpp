@@ -1,12 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "CharInforViewer.h"
-
+#include "ItemInventory.h"
 
 
 UCharInforViewer::UCharInforViewer(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
-	,bIsOpened(false)
+	, InventoryGrid(nullptr)
+	, bIsOpened(false)
 {
 
 }
@@ -26,9 +27,12 @@ void UCharInforViewer::ToggleVisibility()
 	ShowCharInforViewer();
 }
 
-void UCharInforViewer::RefreshInventory()
+void UCharInforViewer::RefreshInventory(const TArray<FPrototype_ItemInfor>& Items)
 {
-
+	if (InventoryGrid)
+	{
+		InventoryGrid->Refresh(Items);
+	}
 }
 
 void UCharInforViewer::RefreshCharacterStatsBox()
