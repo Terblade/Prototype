@@ -90,6 +90,7 @@ void AItemActor::OnPickupItem(class APrototypeCharacter* Player)
 
 	FPrototype_ItemInfor Item;
 	Item.ItemType = ItemType;
+	Item.ItemStat = EItemStat::Unequipped;
 	Item.InventoryImage = InventoryImage;
 
 	Player->CurrentItems.Add(Item);

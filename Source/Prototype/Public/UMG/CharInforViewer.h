@@ -18,7 +18,7 @@ public:
 
 	UCharInforViewer(const FObjectInitializer& ObjectInitializer);
 
-	//virtual void NativeConstruct() override;
+	virtual bool Initialize() override;
 
 	void ToggleVisibility();
 
@@ -38,6 +38,15 @@ private:
 	*/
 	UPROPERTY(meta = (BindWidget))
 	class UItemInventory* InventoryGrid;
+
+	UPROPERTY(meta = (BindWidget))
+	class UInventorySlot* HelmetSlot;
+
+	UPROPERTY(meta = (BindWidget))
+	class UInventorySlot* WeaponSlot;
+
+	UPROPERTY(meta = (BindWidget))
+	class UInventorySlot* ShieldSlot;
 
 	bool bIsOpened;
 };

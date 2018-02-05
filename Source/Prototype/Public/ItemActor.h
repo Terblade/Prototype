@@ -9,13 +9,19 @@
 
 
 UENUM()
-enum class EItmeType : uint8
+enum class EItemType : uint8
 {
 	Weapon_1Handed = 0,
 	Weapon_2Handed,
 	Armor_Shield,
 	Armor_Helmet,
 	consumable
+};
+
+enum class EItemStat : uint8
+{
+	Unequipped = 0,
+	Equipped,
 };
 
 UCLASS(config = Game, BlueprintType)
@@ -66,7 +72,7 @@ public:
 	FText PickupText;
 
 	UPROPERTY(EditAnywhere, Category = Item)
-	EItmeType ItemType;
+	EItemType ItemType;
 
 	UPROPERTY(EditAnywhere, Category = Item)
 	TSubclassOf<class UPickupText> UMGClass;

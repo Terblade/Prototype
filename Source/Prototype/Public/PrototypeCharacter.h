@@ -3,14 +3,16 @@
 #include "GameFramework/Character.h"
 #include "PrototypeCharacter.generated.h"
 
-enum class EItmeType : uint8;
+enum class EItemType : uint8;
+enum class EItemStat : uint8;
 
 USTRUCT()
 struct FPrototype_ItemInfor
 {
 	GENERATED_BODY()
 
-	EItmeType ItemType;
+	EItemType ItemType;
+	EItemStat ItemStat;
 
 	UPROPERTY()
 	class UTexture2D* InventoryImage;

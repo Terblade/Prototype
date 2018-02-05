@@ -4,7 +4,7 @@
 #include "InventorySlot.h"
 #include "PrototypeCharacter.h"
 #include "WidgetTree.h"
-
+#include "ItemActor.h"
 
 void UItemInventory::NativeConstruct()
 {
@@ -44,6 +44,13 @@ void UItemInventory::Refresh(const TArray<FPrototype_ItemInfor>& Items)
 
 	for (int32 Index = 0; Index < Items.Num(); ++Index)
 	{
-		InventorySlots[Index]->SlotImage = Items[Index].InventoryImage;
+		if (Items[Index].ItemStat == EItemStat::Unequipped)
+		{
+			InventorySlots[Index]->SlotImage = Items[Index].InventoryImage;
+		}
+		else
+		{
+			InventorySlots[Index]->SlotImage = nullptr;
+		}
 	}
 }
