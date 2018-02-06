@@ -71,10 +71,13 @@ void UCharInforViewer::RefreshInventory(const TArray<FPrototype_ItemInfor>& Item
 			{
 			case EItemType::Armor_Helmet:
 				HelmetSlot->SlotImage = EquipmentImage;
+				break;
 			case EItemType::Armor_Shield:
 				ShieldSlot->SlotImage = EquipmentImage;
+				break;
 			case EItemType::Weapon_1Handed:
 				WeaponSlot->SlotImage = EquipmentImage;
+				break;
 			default:
 				break;
 			}

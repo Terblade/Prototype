@@ -58,8 +58,13 @@ APrototypeCharacter::APrototypeCharacter()
 		Weapon->SetupAttachment(GetMesh(), WeaponRight_SocketName);
 		Weapon->SetRelativeLocation(FVector(0, 0, 60));
 		Weapon->SetRelativeScale3D(FVector(3, 3, 3));
+
 		Shield->SetupAttachment(GetMesh(), Shield_SocketName);
+		Shield->SetRelativeLocation(FVector(0, 3, -5));
+
 		Helmet->SetupAttachment(GetMesh(), Helmet_SocketName);	
+		Helmet->SetRelativeScale3D(FVector(1.5, 1.5, 1.5));
+		Helmet->SetRelativeLocation(FVector(0, 0, 10));
 	}
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
