@@ -16,6 +16,9 @@ struct FPrototype_ItemInfor
 
 	UPROPERTY()
 	class UTexture2D* InventoryImage;
+
+	UPROPERTY()
+	class UStaticMesh* InventoryMesh;
 };
 
 UCLASS(config = Game)
@@ -32,6 +35,15 @@ class APrototypeCharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
+
+	UPROPERTY()
+	class UStaticMeshComponent* Weapon;
+
+	UPROPERTY()
+	class UStaticMeshComponent* Helmet;
+
+	UPROPERTY()
+	class UStaticMeshComponent* Shield;
 
 	FOnPickupItem OnPickupItemDelegate;
 public:

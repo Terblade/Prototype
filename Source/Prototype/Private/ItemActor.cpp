@@ -92,6 +92,7 @@ void AItemActor::OnPickupItem(class APrototypeCharacter* Player)
 	Item.ItemType = ItemType;
 	Item.ItemStat = EItemStat::Unequipped;
 	Item.InventoryImage = InventoryImage;
+	Item.InventoryMesh = PreviewMesh->GetStaticMesh();
 
 	Player->CurrentItems.Add(Item);
 

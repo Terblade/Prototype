@@ -14,9 +14,9 @@ void UInventorySlot::NativeConstruct()
 	if (SlotButton )
 	{
 		if ( SlotType == EInventorySlot_Type::InventoryItemSlot)
-			SlotButton->OnClicked.AddDynamic(this, &UInventorySlot::OnEquipItem);
+			SlotButton->OnClicked.AddUniqueDynamic(this, &UInventorySlot::OnEquipItem);
 		else if(SlotType == EInventorySlot_Type::EquipmentSlot)
-			SlotButton->OnClicked.AddDynamic(this, &UInventorySlot::OnUnEquipItem);
+			SlotButton->OnClicked.AddUniqueDynamic(this, &UInventorySlot::OnUnEquipItem);
 	}
 }
 

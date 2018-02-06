@@ -7,6 +7,11 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "UMG/CharInforViewer.h"
 #include "ItemActor.h"
+#include "Components/StaticMeshComponent.h"
+
+const static FName WeaponRight_SocketName = TEXT("Weapon_Right");
+const static FName Shield_SocketName = TEXT("Weapon_Left");
+const static FName Helmet_SocketName = TEXT("Helmet");
 
 APrototypeCharacter::APrototypeCharacter()
 {
@@ -38,6 +43,24 @@ APrototypeCharacter::APrototypeCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
+
+	Weapon = NewObject<UStaticMeshComponent>(this, TEXT("Weapon"));
+	Weapon->SetMobility(EComponentMobility::Movable);
+
+	Shield = NewObject<UStaticMeshComponent>(this, TEXT("Shield"));
+	Shield->SetMobility(EComponentMobility::Movable);
+
+	Helmet = NewObject<UStaticMeshComponent>(this, TEXT("Helmet"));
+	Helmet->SetMobility(EComponentMobility::Movable);
+
+	if (GetMesh())
+	{
+		Weapon->SetupAttachment(GetMesh(), WeaponRight_SocketName);
+		Weapon->SetRelativeLocation(FVector(0, 0, 60));
+		Weapon->SetRelativeScale3D(FVector(3, 3, 3));
+		Shield->SetupAttachment(GetMesh(), Shield_SocketName);
+		Helmet->SetupAttachment(GetMesh(), Helmet_SocketName);	
+	}
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
@@ -150,6 +173,30 @@ void APrototypeCharacter::RefreshInventory()
 	if (CharacterInforViewer)
 	{
 		CharacterInforViewer->RefreshInventory(CurrentItems);
+	}
+
+	// Attach item to Character mesh
+	if (GetMesh())
+	{
+		for (const FPrototype_ItemInfor& Item : CurrentItems)
+		{
+			if (Item.ItemStat == EItemStat::Equipped
+				&& Item.InventoryMesh)
+			{
+				if (Item.ItemType == EItemType::Weapon_1Handed)
+				{
+					Weapon->SetStaticMesh(Item.InventoryMesh);
+				}
+				else if (Item.ItemType == EItemType::Armor_Shield)
+				{
+					Shield->SetStaticMesh(Item.InventoryMesh);
+				}
+				else if (Item.ItemType == EItemType::Armor_Helmet)
+				{
+					Helmet->SetStaticMesh(Item.InventoryMesh);
+				}
+			}
+		}
 	}
 }
 
